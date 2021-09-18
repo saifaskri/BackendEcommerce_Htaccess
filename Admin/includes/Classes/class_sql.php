@@ -278,6 +278,18 @@ public function check_column_in_db_2_condition($conn,$tabel,$column,$data,$colum
     else{return $msg ;}
     
 }
+public function check_column_update_user($conn,$id_user,$email,$name){
+    $query="SELECT * FROM  user WHERE id != :id AND (email = :email OR username = :username) " ;
+    $get=$conn->prepare($query);
+    $get->bindValue(':id', $id_user);
+    $get->bindValue(':email',$email,);
+    $get->bindValue(':username',$name);
+    $get->execute();
+    $row=$get->rowCount();
+    if($row==0){ return false;}
+    else{return true ;}
+    
+}
 
 
 
@@ -443,9 +455,20 @@ public function modify_row_in_db($conn,$t,$d,$p,$cur,$id){
     $stat->bindValue(':item_desc',$desc);
     $stat->bindValue(':item_price',$price);
     $stat->bindValue(':item_currency',$currency);
-    //    $stat->bindValue(':item_photo',$new_photo_link);
     if($stat->execute()){return "Row is Updated Sucessfully";}else{return "there is a problem";}
 }
+
+
+public function modify_user_info($conn,$id,$email,$username){  
+    
+    $q="UPDATE user SET email= :email ,  username = :username WHERE id = :id ";
+    $stat=$conn->prepare($q);
+    $stat->bindValue(':id',$id);
+    $stat->bindValue(':email',$email);
+    $stat->bindValue(':username',$username);
+    if($stat->execute()){return "Row is Updated Sucessfully";}else{return "there is a problem";}
+}
+
 
 
 

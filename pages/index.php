@@ -18,7 +18,7 @@ define("USER_INFO",$userinfo);
 if(isset($_GET["was"])){$was=$_GET["was"];}else{$was="default";}
 echo "<a href='?was=add'><div class='add-item_btn'><i class='fas fa-plus'></i></div></a>";
 
-                                                                                    // ===========Start The Main Page================
+                                          // ===========Start The Main Page================
 //check if user is admin
 if (USER_INFO[0]["groupID"]=='1'){
   
@@ -31,7 +31,7 @@ $function->show_alert_div("alert alert-info mt-5","Sorry Admin We Will Edit this
 
 }
     
-//edit this Later
+
 else if ($was == "modify_account"){
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $mod_email=filter_var($_POST['mod_email'],FILTER_SANITIZE_STRING);
@@ -91,13 +91,6 @@ else if ($was == "modify_account"){
 </div>
 <?php
 }// end modify user page 
-
-
-
-
-
-
-
 
 
 
@@ -870,10 +863,66 @@ if ($was=="default"){
 $function->show_alert_div("alert alert-info mt-5","Sorry We Will Edit this Page Later");
 }
 
-//edit this Later
+
 else if ($was == "modify_account"){
- $function->show_alert_div("alert alert-info mt-5","Sorry We Will Edit Modify Account Later Kein Lust Drauf");
-}
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $mod_email=filter_var($_POST['mod_email'],FILTER_SANITIZE_STRING);
+        $mod_name=filter_var($_POST['mod_name'],FILTER_SANITIZE_STRING);
+        $mod_pass=filter_var($_POST['mod_pass'],FILTER_SANITIZE_STRING);
+        $error_mod_user=array();
+        //check if input are empty
+        $error_mod_user=$function->check_required_input_fields([$mod_email,$mod_name,$mod_pass]);
+        //chek if email or username is used
+        $check_user = $mycrud->check_column_update_user($conn,USER_INFO[0]['id'],$mod_email,$mod_name);
+        $error_mod_user [] = ($check_user) ? "UserName OR Email Is Used !!!":"";
+        //check Password
+        $error_mod_user [] = (sha1($mod_pass) != USER_INFO[0]['password']) ? "Worng Password":"";
+    
+        //deleteing error element if there is no msg error
+        foreach($error_mod_user as $index => $error){if ($error==="") unset($error_mod_user[$index]);}
+        //end deleteing
+        //print all error if they exist
+        if(!empty($error_mod_user)){
+            foreach($error_mod_user as $error)
+            $function->show_alert_div("alert-danger mt-5",$error);
+//no error 
+        }else{
+//update the user information 
+        $msg=$mycrud->modify_user_info($conn,USER_INFO[0]['id'],$mod_email,$mod_name);
+        $function->show_alert_div("alert-success mt-5",$msg);
+        header( "refresh:1;url=?was=default");
+    }
+    }//end if post methode
+
+?>
+<h1 class="info-text text-center mt-5">Modify User Page</h1>
+<div class="wrapper">
+	<div class="login-box">
+		<form class="form-container" method="post" action="index.php?was=modify_account">
+			<div class="input-addon">
+				<input class="form-element input-field" name="mod_name" placeholder="Name" type="text"  value="<?=USER_INFO[0]['username']?>">
+				<span class="input-addon-item">
+					<span class="fa fa-user"></span>
+		                </span>
+			</div>
+			<div class="input-addon">
+				<input class="form-element input-field" placeholder="Email" name="mod_email"  type="email"  value="<?=USER_INFO[0]['email']?>">
+				<span class="input-addon-item">
+					<span class="fa fa-envelope"></span>
+                		</span>
+			</div>
+			<div class="input-addon">
+				<input class="form-element input-field" placeholder="Write Your Password" name="mod_pass" type="password">
+				<span class="input-addon-item">
+					<span class="fa fa-lock"></span>
+                		</span>
+			</div>
+			<input class="form-element is-submit" type="submit" value="Update">
+		</form>
+	</div>
+</div>
+<?php
+}// end modify user page
     
 
 

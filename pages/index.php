@@ -63,7 +63,7 @@ else if ($was == "modify_account"){
     }//end if post methode
 ?>
 <h1 class="info-text text-center mt-5">Modify User Page</h1>
-<div class="wrapper">
+<div class="wrapper modify_account">
 	<div class="login-box">
 		<form class="form-container" method="post" action="index.php?was=modify_account">
 			<div class="input-addon">
@@ -896,7 +896,7 @@ else if ($was == "modify_account"){
 
 ?>
 <h1 class="info-text text-center mt-5">Modify User Page</h1>
-<div class="wrapper">
+<div class="wrapper modify_account">
 	<div class="login-box">
 		<form class="form-container" method="post" action="index.php?was=modify_account">
 			<div class="input-addon">

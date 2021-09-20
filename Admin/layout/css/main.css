@@ -1119,11 +1119,8 @@ font-size:22px;
 /* start modify account */
 @import url('https://fonts.googleapis.com/css?family=Raleway');
 
-body {
-	
-}
 
-.info-text {
+.modify_account .info-text {
 	font-size: 30px;
 }
 
@@ -1135,7 +1132,7 @@ body {
 	justify-content: center;
 }
 
-.login-box {
+.modify_account .login-box {
 		background: #fff;
 		width: 90%;
 		height:500px;
@@ -1145,16 +1142,16 @@ body {
         transform: translateY(-70px);
 }
 
-.form-container {
+.modify_account .form-container {
 	display: flex;
 	flex-direction: column;
 }
 
-.form-container .input-addon {
+.modify_account .form-container .input-addon {
 	margin-top: 1.5rem;
 }
 
-.form-element {
+.modify_account .form-element {
 	margin-top: 0.8rem;
 	height: 2rem;
 	border: 1px solid #d2d6de;
@@ -1162,16 +1159,16 @@ body {
 	font-size: .9rem;
 }
 
-.form-element:focus {
+.modify_account .form-element:focus {
 	outline: 1px solid #673ab7;
 }
 
-.form-element::placeholder {
+.modify_account .form-element::placeholder {
 	font-family: 'Raleway', sans-serif;
 	font-size: .8rem;
 }
 
-.form-element.is-submit {
+.modify_account .form-element.is-submit {
 	height: 3rem;
 	font-size: 1rem;
 	line-height: normal;
@@ -1180,19 +1177,19 @@ body {
 	color: #fff;
 }
 
-.input-addon {
+.modify_account .input-addon {
 	display: flex;
 }
 
-.input-addon > .form-element {
+.modify_account .input-addon > .form-element {
 	margin-top: 0;
 }
 
-.input-field {
+.modify_account .input-field {
 	flex: 1;
 }
 
-.input-addon-item {
+.modify_account .input-addon-item {
 	padding: 5px;
 	width: 35px;
 	border: 1px solid #d2d6de;
